@@ -1,0 +1,7 @@
+<h1>This are the filtered books</h1>
+{% for books in data %}
+<a href="{% url 'Book details' books.id %}"><img src="{{books.Img.url}}" alt="Image"></a>
+<h4>{{books.Title}}</h4>
+<h4>{{books.Author}}</h4>
+{% endfor %}
+

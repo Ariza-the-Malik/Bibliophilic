@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+    <div class="tabs is-centered">
+ 
+</div>
+
+<section class="section">
+    <div class="container">
+    <div class="tabs is-centered">
+ 
+
+<div class="columns is-mobile">
+  <div class="column is-offset-one-fifth">
+
+
+<div class="field has-addons">
+<form action="{% url 'list_book' %}" method="get">
+  <div class="control">
+    <input class="input is-large" name="q1" type="text" placeholder="Search Books..." value="{{ request.GET.q1 }}">
+  </div>
+  <div class="control">
+      <button type="submit" class="button is-success">Search</button>
+  </div>
+  </form>
+</div>
+
+{% for books in object_list %}
+<a href="{% url 'Book details' books.id %}"><img src="{{books.Img.url}}" alt="Image"></a>
+<h4>{{books.Title}}</h4>
+<h4>{{books.Author}}</h4>
+{% endfor %}
+</section>
+<div class="columns is-mobile is-multiline is-centered"> 
+
+    <br>
+        <form method="get" action="{% url 'filterBook' %}">
+      
+          <!-- <input name="q2" type="text" placeholder="Filter..."> -->
+         <center> <label for="Category"><h4>Category</h4></label>
+          &nbsp;&nbsp;&nbsp;
+          <select name="Category">
+            <option selected value><h4>select Category</h4></option>
+            <option value="book1_cat">book1_cat</option>
+            <option value="Horror">Horror</option>
+            <option value="story">Story</option>
+            <option value="comedy">Comedy</option>
+      
+          </select>
+
+        </center>
+          <input type="Submit" value="Search">
+          
+        </form>
+      
+    
+  {% for book in book_obj %}
+
+    
+      <div class="column is-one-quarter">
+
+        <div class="box">
+        <figure class="image is-1by1">
+          <a href="{% url 'Book details' book.id %}"><img src="{{book.Img.url}}" alt="Image"></a>
+        </figure>
+
+        <div class="is-centered">
+        <div>{{book.Title}}</div>
+		<div>Author :: {{book.Author}}</div>
+    <h2 class="subtitle">Stars: {% if book.get_rating == 0 %}Be The First to Rate{% else %}{{ book.get_rating|floatformat:1 }}{% endif %}</h2> 
+    </div>
+
+          
+
+		</div> 
+    </div>   
+
+ {% empty %}
+      <br>
+    {% endfor %}
+
+  </form>
+  </div>
+
+
+ 
+
+</div>
+  </section>
+
+{% endblock %}
